@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     public SpriteRenderer sprite;
     public Color damageColor;
 
+    public float PushForce;
+    public float TakeDamageTimer;
+    public float TakeDamageCD;
+
     [Header("Cosas para el flip")]
     public bool isFacingRight = true;
     [Header("Variables de movimiento")]
@@ -31,14 +35,10 @@ public class Player : MonoBehaviour
     public int effectLoop;
     public float damageTweenTime;
 
+
     void Start()
     {
-        if(anim == null)
-            anim = GetComponent<Animator>();
-        else if(sprite == null)
-            sprite = GetComponent<SpriteRenderer>();
-        else if(rb == null)
-            rb = GetComponent<Rigidbody2D>();
+        CheckComponents();
         AttackHitBox.SetActive(false);
 
     }
@@ -57,10 +57,7 @@ public class Player : MonoBehaviour
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
 
-
-
         rb.velocity = new Vector2(inputX * Xspeed, inputY * Yspeed);
-
 
         if (inputX == 0 && inputY == 0)
             anim.SetBool("isWalking", false);
@@ -85,6 +82,19 @@ public class Player : MonoBehaviour
         }
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case ("EnemyAttack"):
+                if(Time.time - TakeDamageTimer >= TakeDamageCD)
+                {
+                    GetDamage();
+                    TakeDamageTimer = Time.time;
+                }
+                break;
+        }
+    }
 
     private void FlipController()
     {
@@ -103,16 +113,48 @@ public class Player : MonoBehaviour
     }
     private void GetDamage()
     {
-        sprite.DOColor(damageColor, 2).SetLoops(effectLoop, LoopType.Yoyo);
+
+        sprite.DOColor(damageColor, (damageTweenTime/effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
+        KnockBack();
+      
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+   private void KnockBack()
     {
-        switch(collision.tag)
+        if (inputX > 0)
         {
-            case ("EnemyAttack"):
-                GetDamage();
-                break;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(-PushForce, rb.velocity.y));
+        }
+        else if (inputX < 0)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(PushForce, rb.velocity.y));
         }
     }
+
+    private void CheckComponents()
+    {
+        if (anim == null)
+        {
+            anim = GetComponent<Animator>();
+            if (anim == null)
+                Debug.LogError("No se enconotro Animator!");
+        }
+        if (sprite == null)
+        {
+            sprite = GetComponent<SpriteRenderer>();
+            if (sprite == null)
+                Debug.LogError("No se enconotro sprite!");
+        }
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+            if (rb == null)
+                Debug.LogError("No se enconotro RigidBody2D!");
+        }
+    }
+   
+    
 
 }
