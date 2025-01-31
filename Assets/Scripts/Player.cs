@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public Slider healthSlider;
     public Color damageColor;
 
+    public float Slidertransform;
     public float PushForce;
     public float TakeDamageTimer;
     public float TakeDamageCD;
