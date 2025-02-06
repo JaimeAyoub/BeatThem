@@ -15,10 +15,9 @@ public class Player : MonoBehaviour
     public Animator anim;
     public SpriteRenderer sprite;
 
-    public Slider healthSlider;
+    //public Slider healthSlider;
     public Color damageColor;
 
-    public float Slidertransform;
     public float PushForce;
     public float TakeDamageTimer;
     public float TakeDamageCD;
@@ -34,9 +33,6 @@ public class Player : MonoBehaviour
     public float AttackTimer = 0f;
     public bool isAttacking = false;
     public float AttackCD = 0.5f;
-    [Header("Variables para vida")]
-    public float life = 10;
-    public float maxHealth;
 
     [Header("Variables Tweens")]
     public int effectLoop;
@@ -47,9 +43,7 @@ public class Player : MonoBehaviour
     //Controles: Movimiento con WASD, pegas con K.
     void Start()
     {
-        life = maxHealth;
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = life;
+
         CheckComponents();
         AttackHitBox.SetActive(false);
 
@@ -125,11 +119,9 @@ public class Player : MonoBehaviour
     }
     private void GetDamage()
     {
-        if (life > 0)
-            life--;
         sprite.DOColor(damageColor, (damageTweenTime/effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
         KnockBack();
-        SetHealth();
+      
       
     }
 
@@ -146,10 +138,7 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector2(PushForce, rb.velocity.y));
         }
     }
-    private void SetHealth()
-    {
-        healthSlider.value = life;
-    }
+  
 
     private void CheckComponents()
     {

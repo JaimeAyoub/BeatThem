@@ -11,11 +11,9 @@ public class Enemy : MonoBehaviour
     public SpriteRenderer sprite;
     public Animator anim;
     [Header("adasdasd")]
-    public Slider healthSlider;
+    //public Slider healthSlider;
     public Color damageColor;
 
-    public float life = 10;
-    public float maxHealth;
 
 
     public int effectLoop;
@@ -25,9 +23,6 @@ public class Enemy : MonoBehaviour
     void Start()
     {
 
-        life = maxHealth;
-        healthSlider.maxValue = maxHealth; 
-        healthSlider.value = life;
     }
 
     // Update is called once per frame
@@ -50,16 +45,12 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
-    private void SetHealth()
-    {
-        healthSlider.value = life;
-    }
+
     private void TakeDamage()
     {
-        if(life>0)
-            life--;
+
         sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
-        SetHealth();
+     
     }
     
 }

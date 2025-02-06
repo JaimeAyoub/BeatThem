@@ -64,7 +64,7 @@ public class Gamemanager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.H))
         {
-            Debug.Log("El enemigo tiene: " + enemy.life + "de vida"); 
+          //  Debug.Log("El enemigo tiene: " + enemy.life + "de vida"); 
         }
     }
 }

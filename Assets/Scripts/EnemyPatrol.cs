@@ -6,34 +6,74 @@ public class EnemyPatrol : MonoBehaviour
 {
     public Rigidbody2D rb;
     public GameObject player;
-    public float speed;
 
-    private float distance;
+    public float speed = 3f;
+    public float range = 5f;
+    public LayerMask raycastLayerMask; 
+    public float attackRange = 1.5f; 
+
+    private EnemyAttack enemyAttack;
+    public bool isPlayerInRange;
+
     void Start()
     {
-        
+        enemyAttack = GetComponent<EnemyAttack>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (player != null)
+        {
+            Vector2 direction = (player.transform.position - transform.position).normalized;
+
+            
+            Debug.DrawRay(transform.position, direction * range, Color.green);
+
+           
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, range, raycastLayerMask);
+
+            if (hit.collider != null && hit.collider.CompareTag("Player"))
+            {
+                isPlayerInRange = true;
+
+               
+                if (Vector2.Distance(transform.position, player.transform.position) > attackRange)
+                {
+                    rb.velocity = direction * speed;
+                }
+                else
+                {
+                    rb.velocity = Vector2.zero; 
+                    if(enemyAttack.IsAttacking() == false && enemyAttack.CanAttack())
+                    {
+
+                        StartCoroutine( enemyAttack.Attack()); 
+                    }
+                }
+            }
+            else
+            {
+                isPlayerInRange = false;
+                rb.velocity = Vector2.zero; 
+            }
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            player = collision.gameObject; ;
-            distance = Vector2.Distance(transform.position, player.transform.position);
-            Vector2 direction = player.transform.position - transform.position;
-            direction.Normalize();
-            float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
+            player = collision.gameObject;
+        }
+    }
 
-            if(distance < 1)
-            {
-                rb.transform.position = Vector2.MoveTowards(rb.transform.position, player.transform.position, speed * Time.deltaTime);
-                
-            }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            player = null;
+            isPlayerInRange = false;
+            rb.velocity = Vector2.zero; 
         }
     }
 }
