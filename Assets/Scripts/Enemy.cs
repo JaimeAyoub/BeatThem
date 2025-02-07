@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     {
 
         sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
+        CameraShake.instance.CmrShake(0.75f, 0.5f); //Intensidad y Tiempo de duracion del efecto
      
     }
     

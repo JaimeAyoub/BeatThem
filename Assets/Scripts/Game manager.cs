@@ -8,6 +8,7 @@ public class Gamemanager : MonoBehaviour
 {
     public  Player player;
     public Enemy enemy;
+    public CameraShake cameraShake;
 
     public static Gamemanager instance;
     void Awake()

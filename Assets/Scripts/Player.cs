@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 
 public class Player : MonoBehaviour
@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     public GameObject AttackHitBox;
     public Animator anim;
     public SpriteRenderer sprite;
+    public PostProcessVolume postProcessVolume;
+    public Vignette vignette;
+    public float vignetteIntensity;
 
     //public Slider healthSlider;
     public Color damageColor;
@@ -46,7 +49,10 @@ public class Player : MonoBehaviour
 
         CheckComponents();
         AttackHitBox.SetActive(false);
-
+        if (postProcessVolume.profile.TryGetSettings(out vignette))
+        {
+            vignette.intensity.value = 0f; 
+        }
     }
 
     
@@ -117,9 +123,18 @@ public class Player : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
-    private void GetDamage()
+    public void GetDamage()
     {
         sprite.DOColor(damageColor, (damageTweenTime/effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
+        DOTween.To(() => vignette.intensity.value, x=>vignette.intensity.value = x, vignetteIntensity,0.5f).SetId("VignetteTween").OnComplete(() =>
+        {
+            
+            DOTween.To(() => vignette.intensity.value,
+                       x => vignette.intensity.value = x,
+                       0f,
+                       0.5f)
+                   .SetId("VignetteTween");
+        });
         KnockBack();
       
       
