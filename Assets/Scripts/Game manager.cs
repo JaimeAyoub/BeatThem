@@ -60,6 +60,7 @@ public class Gamemanager : MonoBehaviour
     {
         CheckEnemyHealth();
         ChangeScene();
+
     }
     void CheckEnemyHealth()
     {
