@@ -8,6 +8,7 @@ TagManager:
   - EnemyAttack
   - ZoneDetection
   - Enemy
+  - PostProcessingVolumen
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,7 @@ public class HP_Player : HP
     protected override void Start()
     { 
         base.Start();
+
         if (postProcessVolume.profile.TryGetSettings(out vignette))
         {
             vignette.intensity.value = 0f;

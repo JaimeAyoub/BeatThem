@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEditor;
+using UnityEditor.UI;
+using System;
 
 public class Gamemanager : MonoBehaviour
 {
     public  Player player;
     public Enemy enemy;
     public CameraShake cameraShake;
-
+    public CanvasGroup pauseCanvasGroup;
     public static Gamemanager instance;
+
+    public bool isPaused = false;
+
     void Awake()
     {
         if (instance == null)
@@ -60,6 +66,7 @@ public class Gamemanager : MonoBehaviour
     {
         CheckEnemyHealth();
         ChangeScene();
+        CheckInputs();
 
     }
     void CheckEnemyHealth()
@@ -69,4 +76,21 @@ public class Gamemanager : MonoBehaviour
           //  Debug.Log("El enemigo tiene: " + enemy.life + "de vida"); 
         }
     }
+
+    void CheckInputs()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause(!isPaused);
+        }
+    }
+
+     void Pause(bool state)
+    {
+        isPaused = state;
+        float PauseCanvasAlphaValue = isPaused ? 1 : 0f;
+        Time.timeScale = isPaused ? 0 : 1;
+        pauseCanvasGroup.DOFade(PauseCanvasAlphaValue, 1).SetUpdate(true);
+    }
 }
+

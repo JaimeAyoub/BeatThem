@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1797746015370695650}
   - component: {fileID: 7448614187340298605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackEnemy
   m_TagString: EnemyAttack
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 4989451075796492224}
   - component: {fileID: 4698478742413356234}
   - component: {fileID: 4614501450159914694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,14 +187,14 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &2594266324646386443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,9 +208,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1233882078374885230}
-  anim: {fileID: 0}
+  anim: {fileID: 4614501450159914694}
   TakeDamageTimer: 0
-  TakeDamageCD: 0
+  TakeDamageCD: 0.5
 --- !u!114 &4989451075796492224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,9 +306,10 @@ GameObject:
   - component: {fileID: 969150059904727233}
   - component: {fileID: 9141358317667352419}
   - component: {fileID: 4649123215016885835}
-  m_Layer: 0
+  - component: {fileID: 3397151404042810077}
+  m_Layer: 9
   m_Name: ZoneDetection
-  m_TagString: Untagged
+  m_TagString: ZoneDetection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +344,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -377,10 +378,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1233882078374885230}
   player: {fileID: 0}
-  speed: 0
+  speed: 1.49
   range: 5
   raycastLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   attackRange: 1.5
   isPlayerInRange: 0
+--- !u!114 &3397151404042810077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657975436135970756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb83c25ee6ede5a43a259d8eff56e895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 4614501450159914694}
+  AttackHitBox: {fileID: 1263216652357043285}
+  AttackCD: 5
+  AttackDuration: 0.5
