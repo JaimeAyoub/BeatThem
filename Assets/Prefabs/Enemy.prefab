@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 7080952762671795216}
   - component: {fileID: 1233882078374885230}
   - component: {fileID: 2594266324646386443}
+  - component: {fileID: 4989451075796492224}
   - component: {fileID: 4698478742413356234}
   - component: {fileID: 4614501450159914694}
   m_Layer: 0
@@ -207,16 +208,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1233882078374885230}
-  sprite: {fileID: 0}
   anim: {fileID: 0}
-  healthSlider: {fileID: 0}
-  damageColor: {r: 0, g: 0, b: 0, a: 0}
-  life: 10
-  maxHealth: 0
-  effectLoop: 0
-  damageTweenTime: 0
   TakeDamageTimer: 0
   TakeDamageCD: 0
+--- !u!114 &4989451075796492224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3087692818812890273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bca53449d57de94ca10c42b8f017247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HpMax: 5
+  currentHp: 0
+  sprite: {fileID: 7080952762671795216}
+  damageColor: {r: 0, g: 0, b: 0, a: 0.019607844}
+  effectLoop: 2
+  damageTweenTime: 0.5
 --- !u!61 &4698478742413356234
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -366,3 +378,9 @@ MonoBehaviour:
   rb: {fileID: 1233882078374885230}
   player: {fileID: 0}
   speed: 0
+  range: 5
+  raycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  attackRange: 1.5
+  isPlayerInRange: 0

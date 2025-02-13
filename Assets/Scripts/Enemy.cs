@@ -8,16 +8,9 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public SpriteRenderer sprite;
+
     public Animator anim;
-    [Header("adasdasd")]
-    //public Slider healthSlider;
-    public Color damageColor;
 
-
-
-    public int effectLoop;
-    public float damageTweenTime;
     public float TakeDamageTimer;
     public float TakeDamageCD;
     void Start()
@@ -32,26 +25,18 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.tag)
+        Debug.Log(collision.tag);
+        HP_Enemy _hpEnemy = GetComponent<HP_Enemy>();
+        if (collision.CompareTag("PlayerAttack"))
         {
-            case ("PlayerAttack"):
-                if (Time.time - TakeDamageTimer >= TakeDamageCD)
-                {
-                    TakeDamage();
-                    TakeDamageTimer = Time.time;
-                }
-                break;
-            default:
-                break;
+            if (Time.time - TakeDamageTimer >= TakeDamageCD)
+            {
+                _hpEnemy.TakeDamage(1);
+                TakeDamageTimer = Time.time;
+            }
         }
     }
 
-    private void TakeDamage()
-    {
+  
 
-        sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
-        CameraShake.instance.CmrShake(0.75f, 0.5f); //Intensidad y Tiempo de duracion del efecto
-     
-    }
-    
 }

@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1488125945840593691}
   - component: {fileID: 6356144500984292582}
-  - component: {fileID: 1158025111653835946}
+  - component: {fileID: 7143584295438913530}
   - component: {fileID: 8076727406891514233}
+  - component: {fileID: 7153816019442173029}
+  - component: {fileID: 1158025111653835946}
   - component: {fileID: 2393068268014253019}
   m_Layer: 0
   m_Name: Player
@@ -88,6 +90,67 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7143584295438913530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6253154164939862538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ad365ea96a24d43a6ce9f5bc3696c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackTimer: 0
+  isAttacking: 0
+  AttackCD: 0.5
+  AttackHitBox: {fileID: 7128376891502302538}
+  anim: {fileID: 0}
+--- !u!114 &8076727406891514233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6253154164939862538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5459c8fba3718449cfe42bd3f69a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1158025111653835946}
+  AttackHitBox: {fileID: 0}
+  anim: {fileID: 0}
+  PushForce: 0
+  TakeDamageTimer: 0
+  TakeDamageCD: 0
+  isFacingRight: 1
+  Xspeed: 0
+  Yspeed: 0
+  inputX: 0
+  inputY: 0
+--- !u!114 &7153816019442173029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6253154164939862538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8016682b48eff45b0216c24d51ea69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HpMax: 5
+  currentHp: 0
+  sprite: {fileID: 6356144500984292582}
+  effectLoop: 2
+  damageTweenTime: 0.5
+  damageColor: {r: 0, g: 0, b: 0, a: 0.02745098}
+  postProcessVolume: {fileID: 0}
+  vignette: {fileID: 0}
+  vignetteIntensity: 0.5
 --- !u!50 &1158025111653835946
 Rigidbody2D:
   serializedVersion: 4
@@ -115,28 +178,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8076727406891514233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6253154164939862538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5459c8fba3718449cfe42bd3f69a5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1158025111653835946}
-  AttackHitBox: {fileID: 0}
-  anim: {fileID: 0}
-  isFacingRight: 1
-  Xspeed: 0
-  Yspeed: 0
-  inputX: 0
-  inputY: 0
-  AttackTimer: 0
-  AttackCD: 0.5
 --- !u!95 &2393068268014253019
 Animator:
   serializedVersion: 5
