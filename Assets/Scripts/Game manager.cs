@@ -86,12 +86,12 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-     void Pause(bool state)
+   public void Pause(bool state)
     {
-        isPaused = state;
         float PauseCanvasAlphaValue = isPaused ? 1 : 0f;
         Time.timeScale = isPaused ? 0 : 1;
         pauseCanvasGroup.DOFade(PauseCanvasAlphaValue, PauseTransitionTime).SetUpdate(true);
+        isPaused = state;
     }
 
     public IEnumerator FreezeFrame(float freezeTime)

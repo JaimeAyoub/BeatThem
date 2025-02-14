@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public HP_Enemy _hpEnemy;
     public EnemyPatrol _enemyPatrol;
     public Animator anim;
-    public bool isFacingRight = true;
+    public bool isFacingRight = false;
 
     public float TakeDamageTimer;
     public float TakeDamageCD;
@@ -52,9 +52,9 @@ public class Enemy : MonoBehaviour
     }
     private void FlipController()
     {
-        if ( _enemyPatrol.returnDistanceEnemyPlayer().x < 0 && isFacingRight)
+        if ( _enemyPatrol.returnDistanceEnemyPlayer().x < 0 && !isFacingRight)
             Flip();
-        else if (_enemyPatrol.returnDistanceEnemyPlayer().x > 0 && !isFacingRight)
+        else if (_enemyPatrol.returnDistanceEnemyPlayer().x > 0 && isFacingRight)
             Flip();
     }
     private void Flip()

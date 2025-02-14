@@ -28,12 +28,12 @@ public class MenuController2D : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             selectedIndex = (selectedIndex - 1 + botones.Length) % botones.Length;
             UpdateSelection();
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             selectedIndex = (selectedIndex + 1) % botones.Length;
             UpdateSelection();
@@ -52,7 +52,7 @@ public class MenuController2D : MonoBehaviour
             btn.GetComponent<SpriteRenderer>().color = Color.white;
         }
 
-        botones[selectedIndex].GetComponent<SpriteRenderer>().color = Color.red;
+        botones[selectedIndex].GetComponent<SpriteRenderer>().color = Color.green;
         UpdateLaser(botones[selectedIndex].position);
     }
 
