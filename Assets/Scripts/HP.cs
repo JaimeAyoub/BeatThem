@@ -16,8 +16,11 @@ public class HP : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        currentHp -= damage;
-        if(currentHp < 0)
+        if (currentHp > 0)
+        {
+            currentHp -= damage;
+        }
+        if(currentHp <= 0)
         {
             Death();
         }
@@ -26,8 +29,9 @@ public class HP : MonoBehaviour
 
     public void Death()
     {
+        StopAllCoroutines();
         DOTween.KillAll();
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 
     public void SetHealth()

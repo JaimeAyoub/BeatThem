@@ -6,7 +6,7 @@ public class EnemyPatrol : MonoBehaviour
 {
     public Rigidbody2D rb;
     public GameObject player;
-
+    public Vector2 distanceEnemyToPlayer;
     public float speed = 3f;
     public float range = 5f;
     public LayerMask raycastLayerMask;
@@ -48,13 +48,13 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (player != null)
         {
-            Vector2 direction = (player.transform.position - transform.position).normalized;
+             distanceEnemyToPlayer = (player.transform.position - transform.position).normalized;
 
 
-            Debug.DrawRay(transform.position, direction * range, Color.green);
-
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, range, raycastLayerMask);
+            Debug.DrawRay(transform.position, distanceEnemyToPlayer * range, Color.green);
+            Debug.Log(distanceEnemyToPlayer);
+          
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, distanceEnemyToPlayer, range, raycastLayerMask);
 
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
@@ -63,7 +63,7 @@ public class EnemyPatrol : MonoBehaviour
 
                 if (Vector2.Distance(transform.position, player.transform.position) > attackRange)
                 {
-                    rb.velocity = direction * speed;
+                    rb.velocity = distanceEnemyToPlayer * speed;
                 }
                 else
                 {
@@ -81,5 +81,15 @@ public class EnemyPatrol : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
+
+
     }
+
+    public Vector2 returnDistanceEnemyPlayer()
+    {
+        return distanceEnemyToPlayer;
+    }
+
+
+
 }

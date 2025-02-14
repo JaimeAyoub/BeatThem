@@ -14,6 +14,7 @@ public class Gamemanager : MonoBehaviour
     public CameraShake cameraShake;
     public CanvasGroup pauseCanvasGroup;
     public static Gamemanager instance;
+    public float PauseTransitionTime;
 
     public bool isPaused = false;
 
@@ -90,7 +91,14 @@ public class Gamemanager : MonoBehaviour
         isPaused = state;
         float PauseCanvasAlphaValue = isPaused ? 1 : 0f;
         Time.timeScale = isPaused ? 0 : 1;
-        pauseCanvasGroup.DOFade(PauseCanvasAlphaValue, 1).SetUpdate(true);
+        pauseCanvasGroup.DOFade(PauseCanvasAlphaValue, PauseTransitionTime).SetUpdate(true);
+    }
+
+    public IEnumerator FreezeFrame(float freezeTime)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(freezeTime);
+        Time.timeScale = 1;
     }
 }
 
