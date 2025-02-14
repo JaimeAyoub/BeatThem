@@ -26,7 +26,7 @@ public class HP_Enemy : HP
         base.TakeDamage(damage);
         if (base.currentHp > 0)
         {
-            StartCoroutine(Gamemanager.instance.FreezeFrame(0.05f));
+            StartCoroutine(Gamemanager.instance.FreezeFrame(0.25f));
             sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
             CameraShake.instance.CmrShake(0.75f, 0.5f); //Intensidad y Tiempo de duracion del efecto
         }
