@@ -1,10 +1,6 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.PostProcessing;
+
 
 
 public class Player : MonoBehaviour
@@ -17,7 +13,7 @@ public class Player : MonoBehaviour
     private PlayerAttack _playerAttack;
 
 
-
+    public bool isFigthing = false;
 
     public float PushForce;
     public float TakeDamageTimer;

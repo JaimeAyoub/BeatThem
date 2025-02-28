@@ -52,7 +52,7 @@ public class EnemyPatrol : MonoBehaviour
 
 
             Debug.DrawRay(transform.position, distanceEnemyToPlayer * range, Color.green);
-            Debug.Log(distanceEnemyToPlayer);
+            
           
             RaycastHit2D hit = Physics2D.Raycast(transform.position, distanceEnemyToPlayer, range, raycastLayerMask);
 

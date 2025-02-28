@@ -4,22 +4,26 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEditor;
-using UnityEditor.UI;
 using System;
 
 public class Gamemanager : MonoBehaviour
 {
-    public  Player player;
-    public Enemy enemy;
+    public Player player;
+    public List<GameObject> enemiesInScene;
     public CameraShake cameraShake;
     public CanvasGroup pauseCanvasGroup;
     public static Gamemanager instance;
     public float PauseTransitionTime;
+    
+    public GameObject enemiPrefab;
 
     public bool isPaused = false;
+    
+    public List<WaveManager> waves = new List<WaveManager>();
 
     void Awake()
     {
+        enemiesInScene = new List<GameObject>();
         if (instance == null)
         {
             instance = this;
@@ -33,7 +37,7 @@ public class Gamemanager : MonoBehaviour
 
     void Start()
     {
-       if(player == null)
+        if (player == null)
         {
             GameObject playerObject = GameObject.Find("Player");
             if (playerObject != null)
@@ -41,15 +45,8 @@ public class Gamemanager : MonoBehaviour
             else
                 Debug.Log("No se encontro al player");
         }
-        if (enemy == null)
-        {
-            GameObject enemyObject = GameObject.Find("Enemy");
-            if (enemyObject != null)
-                enemy = enemyObject.GetComponent<Enemy>();
-            else
-                Debug.Log("No se encontro al Enemy");
-        }
     }
+
     void ChangeScene()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -65,28 +62,21 @@ public class Gamemanager : MonoBehaviour
 
     void Update()
     {
-        CheckEnemyHealth();
         ChangeScene();
         CheckInputs();
+        GetEnemiesInScene();
+    }
 
-    }
-    void CheckEnemyHealth()
-    {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-          //  Debug.Log("El enemigo tiene: " + enemy.life + "de vida"); 
-        }
-    }
 
     void CheckInputs()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause(!isPaused);
         }
     }
 
-   public void Pause(bool state)
+    public void Pause(bool state)
     {
         float PauseCanvasAlphaValue = isPaused ? 1 : 0f;
         Time.timeScale = isPaused ? 0 : 1;
@@ -94,12 +84,49 @@ public class Gamemanager : MonoBehaviour
         isPaused = state;
     }
 
+    public void addEnemy(GameObject enemy)
+    {
+        enemiesInScene.Add(enemy);
+    }
+
+
+    public void SpawnEnemy(GameObject spawnPoint, int numberOfEnemies)
+    {
+        for (int i = 0; i < numberOfEnemies; i++)
+        {
+            // Obtener el prefab del enemigo
+            GameObject enemyPrefab = GetEnemyPrefab();
+
+            // Instanciar el enemigo
+            GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+
+            // Registrar el enemigo instanciado a la lista de enemigos activos
+            addEnemy(spawnedEnemy);
+        }
+    }
+
+
+    private GameObject GetEnemyPrefab()
+    {
+        return enemiPrefab;
+    }
+
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        enemiesInScene.Remove(enemy);
+    }
+
+    public int GetEnemiesInScene()
+    {
+        return enemiesInScene.Count;
+    }
+
     public IEnumerator FreezeFrame(float freezeTime)
     {
-        yield return new WaitForSecondsRealtime(0.05f);
+        yield return new WaitForSecondsRealtime(0.25f);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(freezeTime);
         Time.timeScale = 1;
     }
 }
-

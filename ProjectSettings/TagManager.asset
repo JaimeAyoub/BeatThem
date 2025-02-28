@@ -9,6 +9,7 @@ TagManager:
   - ZoneDetection
   - Enemy
   - PostProcessingVolumen
+  - Limite
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Enemies
   - PostProcessing
   - DetectionZone
-  - 
-  - 
+  - ClosedWall
+  - OpenWall
   - 
   - 
   - 

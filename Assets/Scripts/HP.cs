@@ -8,6 +8,7 @@ public class HP : MonoBehaviour
 {
     public int HpMax;
     public int currentHp;
+
     protected virtual void Start()
     {
         SetHealth();
@@ -20,18 +21,19 @@ public class HP : MonoBehaviour
         {
             currentHp -= damage;
         }
-        if(currentHp <= 0)
+
+        if (currentHp <= 0)
         {
             Death();
         }
-
     }
 
     public void Death()
     {
         StopAllCoroutines();
         DOTween.KillAll();
-        this.gameObject.SetActive(false);
+     
+        Destroy(gameObject);
     }
 
     public void SetHealth()
