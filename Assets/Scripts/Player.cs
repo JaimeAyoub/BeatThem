@@ -113,13 +113,13 @@ public class Player : MonoBehaviour
         {
             anim = GetComponent<Animator>();
             if (anim == null)
-                Debug.LogError("No se enconotro Animator!");
+                Debug.LogError("No se encontro Animator!");
         }
         if (rb == null)
         {
             rb = GetComponent<Rigidbody2D>();
             if (rb == null)
-                Debug.LogError("No se enconotro RigidBody2D!");
+                Debug.LogError("No se encontro RigidBody2D!");
         }
     }
    

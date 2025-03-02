@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class WaveManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        // Configuración de referencias locales
+        
         if (enterWall == null)
             enterWall = transform.Find("EnterWall")?.gameObject;
 
@@ -35,8 +36,6 @@ public class WaveManager : MonoBehaviour
         if (spawnPoint == null)
             spawnPoint = transform.Find("SpawnPoint")?.gameObject;
 
-        if (enterWall) enterWall.GetComponent<Animator>().enabled = false;
-        if (exitWall) exitWall.GetComponent<Animator>().enabled = false;
     }
 
     void Update()
@@ -58,6 +57,7 @@ public class WaveManager : MonoBehaviour
 
     private void InitWave()
     {
+        
         Debug.Log("Iniciando la wave.");
         isFighting = true; // Estado local
         StartCoroutine(CloseWalls());
@@ -92,20 +92,24 @@ public class WaveManager : MonoBehaviour
     private IEnumerator CloseWalls()
     {
         yield return new WaitForSeconds(1);
-        if (enterWall) enterWall.GetComponent<Animator>().enabled = true;
-        if (exitWall) exitWall.GetComponent<Animator>().enabled = true;
+        SpriteRenderer spriteRendererEnterWall = enterWall.GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRendererExitWall = exitWall.GetComponent<SpriteRenderer>();
+        
 
         if (enterWall)
         {
-            enterWall.layer = LayerMask.NameToLayer("ClosedWall");
-            enterWall.GetComponent<SpriteRenderer>().color = Color.black;
+            spriteRendererEnterWall.DOFade(1, 2);
+          
+            //enterWall.layer = LayerMask.NameToLayer("ClosedWall");
+           // enterWall.GetComponent<SpriteRenderer>().color = Color.black;
             enterWall.GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
         if (exitWall)
         {
-            exitWall.layer = LayerMask.NameToLayer("ClosedWall");
-            exitWall.GetComponent<SpriteRenderer>().color = Color.black;
+            spriteRendererExitWall.DOFade(1, 2);
+           // exitWall.layer = LayerMask.NameToLayer("ClosedWall");
+           //exitWall.GetComponent<SpriteRenderer>().color = Color.black;
             exitWall.GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
@@ -114,21 +118,22 @@ public class WaveManager : MonoBehaviour
 
     private void OpenWalls()
     {
-        if (enterWall)
-        {
-            enterWall.GetComponent<BoxCollider2D>().isTrigger = true;
-            enterWall.layer = LayerMask.NameToLayer("Default");
-            enterWall.GetComponent<SpriteRenderer>().enabled = false;
-            enterWall.GetComponent<Animator>().enabled = false;
-        }
-
-        if (exitWall)
-        {
-            exitWall.GetComponent<BoxCollider2D>().isTrigger = true;
-            exitWall.layer = LayerMask.NameToLayer("Default");
-            exitWall.GetComponent<SpriteRenderer>().enabled = false;
-            exitWall.GetComponent<Animator>().enabled = false;
-        }
+        // if (enterWall)
+        // {
+        //     enterWall.GetComponent<BoxCollider2D>().isTrigger = true;
+        //     enterWall.layer = LayerMask.NameToLayer("Default");
+        //     enterWall.GetComponent<SpriteRenderer>().enabled = false;
+        //     enterWall.GetComponent<Animator>().enabled = false;
+        // }
+        //
+        // if (exitWall)
+        // {
+        //     exitWall.GetComponent<BoxCollider2D>().isTrigger = true;
+        //     exitWall.layer = LayerMask.NameToLayer("Default");
+        //     exitWall.GetComponent<SpriteRenderer>().enabled = false;
+        //     exitWall.GetComponent<Animator>().enabled = false;
+        // }
+        Destroy(this.gameObject);
     }
 
     private GameObject GetRandomEnemyPrefab()

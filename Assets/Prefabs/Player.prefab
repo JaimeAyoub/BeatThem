@@ -249,10 +249,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -297,6 +297,7 @@ MonoBehaviour:
   rb: {fileID: 1158025111653835946}
   AttackHitBox: {fileID: 7128376891502302538}
   anim: {fileID: 2393068268014253019}
+  isFigthing: 0
   PushForce: 0
   TakeDamageTimer: 0
   TakeDamageCD: 0.5
@@ -326,6 +327,7 @@ MonoBehaviour:
   postProcessVolume: {fileID: 0}
   vignette: {fileID: 0}
   vignetteIntensity: 0.5
+  hpSlider: {fileID: 0}
 --- !u!50 &1158025111653835946
 Rigidbody2D:
   serializedVersion: 4

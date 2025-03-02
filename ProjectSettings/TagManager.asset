@@ -23,7 +23,7 @@ TagManager:
   - DetectionZone
   - ClosedWall
   - OpenWall
-  - 
+  - Decoration
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1966183775
+    locked: 0
+  - name: Decoration
+    uniqueID: 1722297345
     locked: 0
