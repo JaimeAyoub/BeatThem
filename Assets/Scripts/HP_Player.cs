@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
@@ -17,12 +18,13 @@ public class HP_Player : HP
     public Vignette vignette;
     public float vignetteIntensity;
 
-    public Slider hpSlider;
+    public SlicedFilledImage HPHealthBar;
+    
+    public CameraShake cameraShake;
     protected override void Start()
     { 
         base.Start();
-        hpSlider.maxValue = base.HpMax;
-        hpSlider.value = base.currentHp;
+       
         if (postProcessVolume.profile.TryGetSettings(out vignette))
         {
             vignette.intensity.value = 0f;
@@ -37,6 +39,7 @@ public class HP_Player : HP
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
+        cameraShake.CmrShake(0.75f, 0.5f); 
         sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
         UpdateHpSlider();
         DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, vignetteIntensity, 0.5f).SetId("VignetteTween").OnComplete(() =>
@@ -53,6 +56,22 @@ public class HP_Player : HP
 
     void UpdateHpSlider()
     {
-        hpSlider.value = base.currentHp;
+        switch (base.currentHp)
+        {
+            case 4:
+                HPHealthBar.fillAmount = 0.80f;
+                break;
+            case 3:
+                HPHealthBar.fillAmount = 0.60f;
+                break;
+            case 2:
+                HPHealthBar.fillAmount = 0.40f;
+                break;
+            case 1:
+                HPHealthBar.fillAmount = 0.20f;
+                break;
+            default:
+                break;
+        }
     }
 }

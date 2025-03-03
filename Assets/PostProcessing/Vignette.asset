@@ -35,7 +35,7 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 1, g: 0, b: 0, a: 1}
+    value: {r: 0.754717, g: 0.06051977, b: 0.06051977, a: 1}
   center:
     overrideState: 1
     value: {x: 0.5, y: 0.5}
@@ -44,13 +44,13 @@ MonoBehaviour:
     value: 0
   smoothness:
     overrideState: 1
-    value: 0.91
+    value: 1
   roundness:
     overrideState: 1
-    value: 1
+    value: 0
   rounded:
     overrideState: 1
-    value: 1
+    value: 0
   mask:
     overrideState: 0
     value: {fileID: 0}
