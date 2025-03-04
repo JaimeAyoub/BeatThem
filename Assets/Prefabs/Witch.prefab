@@ -187,7 +187,7 @@ Transform:
   - {fileID: 4006377758216740373}
   - {fileID: 656428112631208971}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8899286793464418901
 SpriteRenderer:
@@ -256,7 +256,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9216
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

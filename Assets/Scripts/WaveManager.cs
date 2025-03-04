@@ -15,6 +15,8 @@ public class WaveManager : MonoBehaviour
 
     [Header("Wave Settings")] [SerializeField]
     private int numeroEnemigos;
+    [SerializeField] private int numeroEnemigosWitch;
+
 
     [SerializeField] private GameObject spawnPoint;
 
@@ -22,11 +24,9 @@ public class WaveManager : MonoBehaviour
     private bool waveStarted = false;
     private bool isFighting = false;
 
- 
 
     void Start()
     {
-        
         if (enterWall == null)
             enterWall = transform.Find("EnterWall")?.gameObject;
 
@@ -35,7 +35,6 @@ public class WaveManager : MonoBehaviour
 
         if (spawnPoint == null)
             spawnPoint = transform.Find("SpawnPoint")?.gameObject;
-
     }
 
     void Update()
@@ -57,11 +56,10 @@ public class WaveManager : MonoBehaviour
 
     private void InitWave()
     {
-        
         Debug.Log("Iniciando la wave.");
         isFighting = true; // Estado local
         StartCoroutine(CloseWalls());
-        StartCoroutine(SpawnWave(numeroEnemigos));
+        StartCoroutine(SpawnWave(numeroEnemigos, numeroEnemigosWitch));
     }
 
     private void EndWave()
@@ -71,21 +69,44 @@ public class WaveManager : MonoBehaviour
         OpenWalls();
     }
 
-    private IEnumerator SpawnWave(int numberOfEnemies)
+    private IEnumerator SpawnWave(int numberOfEnemies,int numeroEnemigosWitch)
     {
-        for (int i = 0; i < numberOfEnemies; i++)
+        //Enemigo que es player pero rojo
+        if (numberOfEnemies > 0)
         {
-            GameObject enemyPrefab = GetRandomEnemyPrefab();
-            if (enemyPrefab != null)
+            for (int i = 0; i < numberOfEnemies; i++)
             {
-                GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.transform.position,
-                    spawnPoint.transform.rotation, this.transform);
-                spawnedEnemy.transform.localScale = new Vector3(-0.5f, 0.05f, 0.05f);
+                GameObject enemyPrefab = GetEnemyPrefab(0);
+                if (enemyPrefab != null)
+                {
+                    GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.transform.position,
+                        spawnPoint.transform.rotation, this.transform);
+                    spawnedEnemy.transform.localScale = new Vector3(-0.5f, 0.05f, 0.05f);
 
-                enemiesInWave.Add(spawnedEnemy);
+                    enemiesInWave.Add(spawnedEnemy);
+                }
+
+                yield return new WaitForSeconds(1);
             }
+        }
+        
+        //Bruja
+        if (numeroEnemigosWitch > 0)
+        {
+            for (int i = 0; i < numeroEnemigosWitch; i++)
+            {
+                GameObject enemyPrefab = GetEnemyPrefab(1);
+                if (enemyPrefab != null)
+                {
+                    GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.transform.position,
+                        spawnPoint.transform.rotation, this.transform);
+                    spawnedEnemy.transform.localScale = new Vector3(0.5f, 0.05f, 0.05f);
 
-            yield return new WaitForSeconds(1);
+                    enemiesInWave.Add(spawnedEnemy);
+                }
+
+                yield return new WaitForSeconds(1);
+            }
         }
     }
 
@@ -94,22 +115,22 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         SpriteRenderer spriteRendererEnterWall = enterWall.GetComponent<SpriteRenderer>();
         SpriteRenderer spriteRendererExitWall = exitWall.GetComponent<SpriteRenderer>();
-        
+
 
         if (enterWall)
         {
             spriteRendererEnterWall.DOFade(1, 2);
-          
+
             //enterWall.layer = LayerMask.NameToLayer("ClosedWall");
-           // enterWall.GetComponent<SpriteRenderer>().color = Color.black;
+            // enterWall.GetComponent<SpriteRenderer>().color = Color.black;
             enterWall.GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
         if (exitWall)
         {
             spriteRendererExitWall.DOFade(1, 2);
-           // exitWall.layer = LayerMask.NameToLayer("ClosedWall");
-           //exitWall.GetComponent<SpriteRenderer>().color = Color.black;
+            // exitWall.layer = LayerMask.NameToLayer("ClosedWall");
+            //exitWall.GetComponent<SpriteRenderer>().color = Color.black;
             exitWall.GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
@@ -136,15 +157,9 @@ public class WaveManager : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private GameObject GetRandomEnemyPrefab()
+    private GameObject GetEnemyPrefab(int index)
     {
-        if (enemyPrefabs.Count > 0)
-        {
-            int randomIndex = Random.Range(0, enemyPrefabs.Count);
-            return enemyPrefabs[randomIndex];
-        }
-
-        return null;
+        return enemyPrefabs[index];
     }
 
     public void RemoveEnemy(GameObject enemy)
