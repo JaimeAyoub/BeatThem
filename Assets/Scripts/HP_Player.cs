@@ -18,9 +18,12 @@ public class HP_Player : HP
     public Vignette vignette;
     public float vignetteIntensity;
 
+
     public SlicedFilledImage HPHealthBar;
     
     public CameraShake cameraShake;
+    
+    
     protected override void Start()
     { 
         base.Start();
@@ -42,6 +45,7 @@ public class HP_Player : HP
         cameraShake.CmrShake(0.75f, 0.5f); 
         sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
         UpdateHpSlider();
+        AudioManager.instance.PlaySFX(AudioManager.instance.TakeDamageSFX);
         DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, vignetteIntensity, 0.5f).SetId("VignetteTween").OnComplete(() =>
         {
 

@@ -15,31 +15,27 @@ public class Enemy : MonoBehaviour
 
     public float TakeDamageTimer;
     public float TakeDamageCD;
+
     void Start()
     {
         _hpEnemy = GetComponent<HP_Enemy>();
-       
     }
 
     // Update is called once per frame
     void Update()
     {
         FlipController();
-
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.tag);
-       
+
         if (collision.CompareTag("PlayerAttack"))
         {
             if (Time.time - TakeDamageTimer >= TakeDamageCD)
             {
-
                 TakeDamage();
-                
-               
-
             }
         }
     }
@@ -49,21 +45,20 @@ public class Enemy : MonoBehaviour
         _hpEnemy.TakeDamage(1);
         TakeDamageTimer = Time.time;
     }
+
     private void FlipController()
     {
-        if ( _enemyPatrol.returnDistanceEnemyPlayer().x < 0 && !isFacingRight)
+        if (_enemyPatrol.returnDistanceEnemyPlayer().x < 0 && !isFacingRight)
             Flip();
         else if (_enemyPatrol.returnDistanceEnemyPlayer().x > 0 && isFacingRight)
             Flip();
     }
+
     private void Flip()
     {
-
         isFacingRight = !isFacingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }
-
-
 }

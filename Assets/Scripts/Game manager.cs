@@ -124,7 +124,7 @@ public class Gamemanager : MonoBehaviour
 
     public IEnumerator FreezeFrame(float freezeTime)
     {
-        yield return new WaitForSecondsRealtime(0.25f);
+        yield return new WaitForSecondsRealtime(0.1f);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(freezeTime);
         Time.timeScale = 1;

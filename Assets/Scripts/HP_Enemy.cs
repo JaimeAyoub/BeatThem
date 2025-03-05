@@ -25,9 +25,10 @@ public class HP_Enemy : HP
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
+        AudioManager.instance.PlaySFX(AudioManager.instance.HitSFX);
         if (base.currentHp > 0)
         {
-            StartCoroutine(Gamemanager.instance.FreezeFrame(0.25f));
+            StartCoroutine(Gamemanager.instance.FreezeFrame(0.15f));
             sprite.DOColor(damageColor, (damageTweenTime / effectLoop)).SetLoops(effectLoop, LoopType.Yoyo);
             CameraShake.instance.CmrShake(0.75f, 0.5f); //Intensidad y Tiempo de duracion del efecto
         }

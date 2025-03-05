@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
 
     public GameObject AttackHitBox;
     public Animator anim;
+
     void Start()
     {
         AttackHitBox.gameObject.SetActive(false);
@@ -19,7 +20,6 @@ public class PlayerAttack : MonoBehaviour
             if (anim == null)
                 Debug.LogError("No se enconotro Animator!");
         }
-
     }
 
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Attack();
     }
+
     void Attack()
     {
         if (Input.GetKeyDown(KeyCode.K) && (Time.time - AttackTimer) >= AttackCD)
@@ -36,13 +37,12 @@ public class PlayerAttack : MonoBehaviour
             AttackTimer = Time.time;
             isAttacking = true;
         }
+
         if (AttackHitBox.activeSelf && (Time.time - AttackTimer) >= AttackCD)
         {
             AttackHitBox.SetActive(false);
             anim.SetBool("IsAttack", false);
             isAttacking = false;
         }
-
     }
 }
-
