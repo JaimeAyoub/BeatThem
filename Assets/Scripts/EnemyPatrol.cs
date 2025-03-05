@@ -48,12 +48,12 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (player != null)
         {
-             distanceEnemyToPlayer = (player.transform.position - transform.position).normalized;
+            distanceEnemyToPlayer = (player.transform.position - transform.position).normalized;
 
 
             Debug.DrawRay(transform.position, distanceEnemyToPlayer * range, Color.green);
-            
-          
+
+
             RaycastHit2D hit = Physics2D.Raycast(transform.position, distanceEnemyToPlayer, range, raycastLayerMask);
 
             if (hit.collider != null && hit.collider.CompareTag("Player"))
@@ -70,7 +70,6 @@ public class EnemyPatrol : MonoBehaviour
                     rb.velocity = Vector2.zero;
                     if (enemyAttack.IsAttacking() == false && enemyAttack.CanAttack())
                     {
-
                         StartCoroutine(enemyAttack.Attack());
                     }
                 }
@@ -81,15 +80,10 @@ public class EnemyPatrol : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
-
-
     }
 
     public Vector2 returnDistanceEnemyPlayer()
     {
         return distanceEnemyToPlayer;
     }
-
-
-
 }

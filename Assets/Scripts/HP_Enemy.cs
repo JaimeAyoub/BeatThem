@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HP_Enemy : HP
@@ -10,7 +8,7 @@ public class HP_Enemy : HP
     public int effectLoop;
     public float damageTweenTime;
     public WaveManager waveManager;
-
+    public Rigidbody2D rb;
     protected override void Start()
     {
         base.Start();
@@ -26,6 +24,17 @@ public class HP_Enemy : HP
     {
         base.TakeDamage(damage);
         AudioManager.instance.PlaySFX(AudioManager.instance.HitSFX);
+        rb = GetComponent<Rigidbody2D>();
+        if (transform.localScale.x > 0)  
+        {
+            transform.DOMove(new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z), 1);
+        }
+        else if (transform.localScale.x < 0)
+        {
+            transform.DOMove(new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z), 1);
+        }
+        
+
         if (base.currentHp > 0)
         {
             StartCoroutine(Gamemanager.instance.FreezeFrame(0.15f));
@@ -35,9 +44,10 @@ public class HP_Enemy : HP
 
         if (base.currentHp <= 0)
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.DieSFX);
             StopAllCoroutines();
             DOTween.KillAll();
-            
+
 
             if (waveManager != null)
             {

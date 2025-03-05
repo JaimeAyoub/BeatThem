@@ -1,10 +1,7 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.UI;
+
 
 public class HP_Player : HP
 {
