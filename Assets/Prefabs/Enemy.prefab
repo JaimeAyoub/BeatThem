@@ -233,6 +233,7 @@ MonoBehaviour:
   effectLoop: 2
   damageTweenTime: 0.5
   waveManager: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!61 &4698478742413356234
 BoxCollider2D:
   m_ObjectHideFlags: 0
