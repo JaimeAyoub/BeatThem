@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class HP : MonoBehaviour
 {
@@ -30,10 +31,18 @@ public class HP : MonoBehaviour
 
     public void Death()
     {
+       
         StopAllCoroutines();
         DOTween.KillAll();
-     
-        Destroy(gameObject);
+        if (gameObject.tag == "Player")
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            
+           Destroy(gameObject);
+        }
     }
 
     public void SetHealth()

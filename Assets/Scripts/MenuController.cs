@@ -76,5 +76,15 @@ public class MenuController2D : MonoBehaviour
         {
             SceneManager.LoadScene(escenas[selectedIndex]);
         }
+
+        if (selectedIndex == 2)
+        {
+            CloseGame();
+        }
+    }
+
+    void CloseGame()
+    {
+        Application.Quit();
     }
 }

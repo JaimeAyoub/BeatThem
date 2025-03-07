@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//CODIGO HECHO POR IA por los de diseÃ±o, NO POR JAIME, asi como la ilustracion fue hecha por ia, no se 
 public class ProyectilBruja : MonoBehaviour
 {
     public float velocidad = 5f;
@@ -7,7 +7,7 @@ public class ProyectilBruja : MonoBehaviour
 
     public void Inicializar(Vector2 direccionObjetivo)
     {
-        direccion = direccionObjetivo.normalized; // Guardamos la dirección fija
+        direccion = direccionObjetivo.normalized; // Guardamos la direcciï¿½n fija
     }
 
     void Update()

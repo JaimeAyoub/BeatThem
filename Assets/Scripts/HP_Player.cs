@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 
 public class HP_Player : HP
@@ -53,12 +54,21 @@ public class HP_Player : HP
                    .SetId("VignetteTween");
         });
 
+        if (base.currentHp <= 0)
+        {
+            SceneManager.LoadScene(3, LoadSceneMode.Single);
+            
+        }
+
     }
 
-    void UpdateHpSlider()
+   public void UpdateHpSlider()
     {
         switch (base.currentHp)
         {
+            case 5:
+                HPHealthBar.fillAmount = 1.0f;
+                break;
             case 4:
                 HPHealthBar.fillAmount = 0.80f;
                 break;
@@ -70,6 +80,9 @@ public class HP_Player : HP
                 break;
             case 1:
                 HPHealthBar.fillAmount = 0.20f;
+                break;
+            case 0:
+                HPHealthBar.fillAmount = 0f;
                 break;
             default:
                 break;

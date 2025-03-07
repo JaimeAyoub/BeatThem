@@ -1,8 +1,8 @@
 using UnityEngine;
-
+//CODIGO HECHO POR IA por los de diseño, NO POR JAIME, asi como la ilustracion fue hecha por ia, no se 
 public class Witch : MonoBehaviour
 {
-    public Transform jugador;
+    public GameObject jugador;
     public float distanciaDeseada = 5f;
 
     public float velocidadAcercarse = 2f;  
@@ -39,19 +39,22 @@ public class Witch : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (jugador == null) return;
+        if (jugador == null)
+        {
+            jugador = GameObject.FindGameObjectWithTag("Player");
+        }
 
-        float distanciaActual = Vector2.Distance(transform.position, jugador.position);
+        float distanciaActual = Vector2.Distance(transform.position, jugador.transform.position);
         float velocidadActual = 0f;
 
         if (distanciaActual > distanciaDeseada + 0.5f)
         {
-            direccionMovimiento = (jugador.position - transform.position).normalized;
+            direccionMovimiento = (jugador.transform.position - transform.position).normalized;
             velocidadActual = velocidadAcercarse;
         }
         else if (distanciaActual < distanciaDeseada - 0.5f)
         {
-            direccionMovimiento = (transform.position - jugador.position).normalized;
+            direccionMovimiento = (transform.position - jugador.transform.position).normalized;
             velocidadActual = velocidadAlejarse;
         }
         else
@@ -61,7 +64,7 @@ public class Witch : MonoBehaviour
 
         rb.velocity = direccionMovimiento * velocidadActual;
 
-        spriteRenderer.flipX = jugador.position.x > transform.position.x;
+        spriteRenderer.flipX = jugador.transform.position.x > transform.position.x;
 
         if (distanciaActual < 2f && Time.time > tiempoUltimoAtaque + tiempoEntreAtaques)
         {
@@ -105,7 +108,7 @@ public class Witch : MonoBehaviour
             ProyectilBruja scriptProyectil = proyectil.GetComponent<ProyectilBruja>();
             if (scriptProyectil != null)
             {
-                Vector2 direccionDisparo = (jugador.position - puntoDisparo.position).normalized;
+                Vector2 direccionDisparo = (jugador.transform.position - puntoDisparo.position).normalized;
                 scriptProyectil.Inicializar(direccionDisparo);
             }
         }

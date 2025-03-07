@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -24,6 +25,11 @@ public class Player : MonoBehaviour
 
 
     //Controles: Movimiento con WASD, pegas con K.
+    //private void Awake()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
+
     void Start()
     {
         _playerAttack = GetComponent<PlayerAttack>();

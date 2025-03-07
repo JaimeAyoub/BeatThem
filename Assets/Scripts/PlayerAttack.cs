@@ -37,7 +37,15 @@ public class PlayerAttack : MonoBehaviour
             AttackTimer = Time.time;
             isAttacking = true;
         }
-
+        
+        //Codigo para implementar el ataque con patada, pero ya que no me pasaron el sprite no puedo meter la animacion
+        // if (Input.GetKeyDown(KeyCode.L) && (Time.time - AttackTimer) >= AttackCD)
+        // {
+        //     anim.SetBool("IsAttackKick", true);
+        //     AttackHitBox.SetActive(true);  En lugar de esta hitbox iria la de la patada
+        //     AttackTimer = Time.time;
+        //     isAttacking = true;
+        // }
         if (AttackHitBox.activeSelf && (Time.time - AttackTimer) >= AttackCD)
         {
             AttackHitBox.SetActive(false);
